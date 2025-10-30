@@ -12,13 +12,13 @@ const Sidemenu = () => {
         navigate('/login')
     }
 
-    
+
 
     const location = useLocation(); // get current route
     const { user, clearUser } = useContext(UserContext)
     // console.log(user)
     return (
-        <aside className="bg-fuchsia-600 text-white w-60 min-h-screen flex flex-col justify-between">
+        <aside className="bg-fuchsia-600 text-white w-60 border-black  min-h-screen flex flex-col justify-between">
             {/* Top Menu */}
             <div>
                 <div className="p-5 text-2xl font-semibold border-b border-fuchsia-700">

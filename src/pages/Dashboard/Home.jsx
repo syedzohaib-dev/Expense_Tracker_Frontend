@@ -1,47 +1,114 @@
-import React, { useEffect, useState } from 'react'
-import Dashboardlayout from '../../components/layouts/Dashboardlayout'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import Dashboardlayout from "../../components/layouts/Dashboardlayout";
+import axios from "axios";
+import { FaWallet, FaArrowUp, FaArrowDown } from "react-icons/fa";
+import RecentTransactions from "../../components/RecentTransactions ";
+import Financialoverview from "../../components/Financialoverview ";
+import Last60DaysIncomeChart from "../../components/Last60DaysIncomeChart";
+import Last30DaysExpenseChart from "../../components/Last30DaysExpenseChart ";
 
 const Home = () => {
+  const [balance, setBalance] = useState(0);
+  const [income, setIncome] = useState(0);
+  const [expense, setExpense] = useState(0);
 
-  const [dashBoardData, setDashboardData] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [transactionsDetail, setTransactionsDetail] = useState([])
+  const [lastSixtyDay, setLastSixtyDay] = useState({})
+  const [lastThirtyDay, setLastThirtyDay] = useState({})
 
-  const fetchDashboardData = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const token = localStorage.getItem("token"); // if token is required
-      const response = await axios.get("http://localhost:3000/api/v1/dashboard", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setDashboardData(response.data);
-      console.log(response.data)
-    } catch (err) {
-      console.error("Error fetching dashboard data:", err);
-      setError("Failed to load dashboard data");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:3000/api/v1/dashboard", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log(response?.data)
+
+
+
+        setBalance(response?.data.totalBalance);
+        setIncome(response?.data.totalIncome);
+        setExpense(response?.data.totalExpense);
+        setTransactionsDetail(response?.data.recentTransactions)
+        setLastSixtyDay(response?.data.last60DaysIncome)
+        setLastThirtyDay(response?.data.last30DaysExpenses)
+
+
+      } catch (error) {
+        console.error("Error fetching dashboard data:", error);
+      }
+    };
     fetchDashboardData();
   }, []);
 
-
   return (
     <Dashboardlayout>
-      <div className='w-[500px] h-[500px]'>
-        Home Dashboard
+      <div className="max-w-7xl mx-auto w-full h-[500px] space-y-6">
+        <h2 className="text-xl font-semibold text-gray-700">Overview</h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Total Balance */}
+          <div className="bg-white rounded-xl shadow-sm  p-6 flex items-center justify-between">
+            <div>
+              <h3 className="text-sm text-gray-500">Total Balance</h3>
+              <p className="mt-2 text-2xl font-semibold text-gray-800">
+                ₨ {balance}
+              </p>
+            </div>
+            <div className="bg-blue-50 text-blue-600 p-3 rounded-lg">
+              <FaWallet className="text-2xl" />
+            </div>
+          </div>
+
+          {/* Total Income */}
+          <div className="bg-white rounded-xl shadow-sm  p-6 flex items-center justify-between">
+            <div>
+              <h3 className="text-sm text-gray-500">Total Income</h3>
+              <p className="mt-2 text-2xl font-semibold text-green-600">
+                ₨ {income.toLocaleString()}
+              </p>
+            </div>
+            <div className="bg-green-50 text-green-600 p-3 rounded-lg">
+              <FaArrowUp className="text-2xl" />
+            </div>
+          </div>
+
+          {/* Total Expense */}
+          <div className="bg-white rounded-xl shadow-sm  p-6 flex items-center justify-between">
+            <div>
+              <h3 className="text-sm text-gray-500">Total Expense</h3>
+              <p className="mt-2 text-2xl font-semibold text-red-600">
+                ₨ {expense.toLocaleString()}
+              </p>
+            </div>
+            <div className="bg-red-50 text-red-600 p-3 rounded-lg">
+              <FaArrowDown className="text-2xl" />
+            </div>
+          </div>
+        </div>
+
+
+        {/* Finential Overview */}
+
+        <RecentTransactions transactionsDetail={transactionsDetail} />
+
+        <Financialoverview
+          balance={balance}
+          income={income}
+          expense={expense}
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+          <Last30DaysExpenseChart lastThirtyDay={lastThirtyDay} />
+          <Last60DaysIncomeChart lastSixtyDay={lastSixtyDay} />
+
+        </div>
+
       </div>
     </Dashboardlayout>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

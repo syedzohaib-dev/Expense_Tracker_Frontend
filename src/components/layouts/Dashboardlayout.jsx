@@ -1,52 +1,49 @@
-import React, { useState } from 'react'
-import Navbar from '../Navbar.jsx'
-import Sidemenu from "../Sidemenu.jsx"
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react";
+import Navbar from "../Navbar.jsx";
+import Sidemenu from "../Sidemenu.jsx";
+import { useNavigate } from "react-router-dom";
 
 const Dashboardlayout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
   if (!token) {
-    navigate('/login')
+    navigate("/login");
   }
 
   return (
-    <>
-      <div className="flex w-full h-screen overflow-hidden bg-gray-100">
-        {/* Sidebar (fixed) */}
-        <div
-          className={`fixed md:static z-20 transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-            } md:translate-x-0`}
-        >
-          <Sidemenu />
-        </div>
-
-        {/* Overlay (Mobile Only) */}
-        {isSidebarOpen && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-40 z-10 md:hidden"
-            onClick={() => setIsSidebarOpen(false)}
-          ></div>
-        )}
-
-        {/* Main Area */}
-        <div className="flex flex-col flex-1 ml-60"> {/* same width as sidebar */}
-          {/* Navbar (fixed) */}
-          <div className="fixed top-0 left-60 right-0 z-10">
-            <Navbar onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
-          </div>
-
-          {/* Scrollable main content */}
-          <main className="mt-16 p-6 overflow-y-auto h-[calc(100vh-4rem)]">
-            {children}
-          </main>
-        </div>
+    <div className="min-h-screen bg-gray-100">
+      {/* Sidebar */}
+      <div
+        className={`fixed top-0 left-0 h-full w-60 z-30 transition-transform duration-300 
+        ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+      >
+        <Sidemenu />
       </div>
-    </>
-  )
-}
 
-export default Dashboardlayout
+      {/* Overlay (Mobile only) */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-40 z-20 md:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
+
+      {/* Main Content */}
+      <div className="md:ml-60 flex flex-col min-h-screen">
+        {/* Navbar */}
+        <div className="fixed top-0 left-0 md:left-60 right-0 z-20 bg-white shadow">
+          <Navbar onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+        </div>
+
+        {/* Scrollable Main Area */}
+        <main className="flex-1 pt-20 px-4 md:px-8 pb-6 overflow-y-auto min-h-[calc(100vh-5rem)]">
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboardlayout;
