@@ -46,35 +46,6 @@ const Signup = () => {
     setError('')
 
     // signup API call
-    //   try {
-
-
-
-    //     const response = await axiosInstance.post("api/v1/auth/register", {
-    //       fullName,
-    //       email,
-    //       password,
-    //     });
-
-
-
-    //     // Agar login successful ho to token save karo
-
-    //     const { token, user } = response.data;
-
-    //     if (token) {
-    //       localStorage.setItem("token", token);
-    //       updateUser(user)
-    //       navigate("/login");
-    //     }
-
-    //   } catch (error) {
-    //     console.error(
-    //       "Signup failed:",
-    //       error.response?.data?.message || error.message
-    //     );
-    //   }
-    // }
 
     try {
       // let profileImageUrl = "";
@@ -109,7 +80,7 @@ const Signup = () => {
       if (token) {
         localStorage.setItem("token", token);
         updateUser(user);
-        // navigate("/login");
+        navigate("/login");
       }
     } catch (error) {
       console.error("Signup failed:", error.response?.data?.message || error.message);
