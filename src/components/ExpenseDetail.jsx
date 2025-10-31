@@ -6,7 +6,7 @@ import axiosInstance from "../utils/axiosinstance";
 
 
 
-const ExpenseDetail = ({ expenseDetail,fetchExpenseData }) => {
+const ExpenseDetail = ({ expenseDetail, fetchExpenseData }) => {
     const [showAll, setShowAll] = useState(false);
     // console.log(incomeSourceDetail)
 
@@ -47,12 +47,17 @@ const ExpenseDetail = ({ expenseDetail,fetchExpenseData }) => {
 
                     <div className="flex items-center justify-between" key={index}>
                         <div className="flex items-center gap-3">
-                            <div className={`p-3 rounded-full ${item.amount > 2000
+                            {item.icon ? (<div className={`w-12 h-10 flex justify-center items-center rounded-full ${item.amount > 2000
                                 ? "bg-green-200 text-green-600"
                                 : "bg-red-200 text-red-600"
                                 }`}>
-                                💰
-                            </div>
+                                {item.icon}
+                            </div>) : (<div className={`w-12 h-10 flex justify-center items-center rounded-full ${item.amount > 2000
+                                ? "bg-green-200 text-green-600"
+                                : "bg-red-200 text-red-600"
+                                }`}>
+                                🚫
+                            </div>)}
                             <span className="text-gray-700 font-medium">{item.category} </span>
                         </div>
                         <div className="flex items-center gap-2">

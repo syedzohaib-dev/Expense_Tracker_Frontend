@@ -23,7 +23,7 @@ const IncomeSource = ({ incomeSourceDetail }) => {
                 }
             );
             toast.success("Income deleted successfully!");
-            fetchIncomeData(); 
+            fetchIncomeData();
         } catch (error) {
             console.error("Error deleting income:", error);
             toast.error("Failed to delete income.");
@@ -46,12 +46,20 @@ const IncomeSource = ({ incomeSourceDetail }) => {
 
                     <div className="flex items-center justify-between" key={index}>
                         <div className="flex items-center gap-3">
-                            <div className={`p-3 rounded-full ${item.amount > 2000
-                                ? "bg-green-200 text-green-600"
-                                : "bg-red-200 text-red-600"
-                                }`}>
-                                💰
-                            </div>
+                            {
+                                item.icon ? (<div className={`w-12 h-10 flex justify-center items-center rounded-full ${item.amount > 2000
+                                    ? "bg-green-200 text-green-600"
+                                    : "bg-red-200 text-red-600"
+                                    }`}>
+                                    {item.icon}
+                                </div>) : (<div className={`w-12 h-10 flex justify-center items-center rounded-full ${item.amount > 2000
+                                    ? "bg-green-200 text-green-600"
+                                    : "bg-red-200 text-red-600"
+                                    }`}>
+                                    🚫
+                                </div>)
+                            }
+
                             <span className="text-gray-700 font-medium">{item.source} </span>
                         </div>
                         <div className="flex items-center gap-2">

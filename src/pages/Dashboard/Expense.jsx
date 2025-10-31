@@ -13,12 +13,13 @@ const Expense = () => {
   const [expenseDetail, setExpenseDetail] = useState([])
 
 
-  const handleAddExpense = async (formData) => {
+  const handleAddExpense = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axiosInstance.post("api/v1/expense/add", formData, {
+      await axiosInstance.post("api/v1/expense/add", { amount, category, date }, {
         headers: { Authorization: `Bearer ${token}` },
       });
+
       setShowModal(false);
       // Refresh income data
       window.location.reload();
