@@ -1,10 +1,64 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Dashboardlayout from '../../components/layouts/Dashboardlayout'
+import ExpenseOverview from '../../components/ExpenseOverview'
+import AddExpenseModal from '../../components/AddExpenseModal';
+import ExpenseDetail from '../../components/ExpenseDetail';
+import axios from 'axios';
 
 const Expense = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [expenseData, setExpenseData] = useState([])
+  const [expenseDetail, setExpenseDetail] = useState([])
+
+
+  const handleAddExpense = async (formData) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.post("http://localhost:3000/api/v1/expense/add", formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setShowModal(false);
+      // Refresh income data
+      window.location.reload();
+    } catch (error) {
+      console.error("Error adding income:", error);
+    }
+  };
+
+
+  const fetchExpenseData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get("http://localhost:3000/api/v1/expense/get", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setExpenseDetail(response?.data)
+      const income = response?.data;
+      const formattedData = Array.isArray(income) ? income : [income];
+      setExpenseData(formattedData);
+    } catch (error) {
+      console.error("Error fetching income data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchExpenseData();
+  }, [])
+
+
+
+
   return (
     <Dashboardlayout>
-      <div>Expense</div>
+
+      <ExpenseOverview />
+      {showModal && (
+        <AddExpenseModal
+          onClose={() => setShowModal(false)}
+          onSubmit={handleAddExpense}
+        />
+      )}
+
+      <ExpenseDetail expenseDetail={expenseDetail} fetchExpenseData={fetchExpenseData} />
     </Dashboardlayout>
   )
 }

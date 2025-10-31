@@ -6,6 +6,8 @@ import { validateEmail } from '../../utils/helper.js'
 import axios from 'axios'
 import { useContext } from 'react'
 import { UserContext } from '../../context/userContext.jsx'
+import toast from "react-hot-toast";
+
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -46,14 +48,19 @@ const Login = () => {
       if (token) {
         localStorage.setItem("token", token);
         updateUser(user)
+        toast.success("Login success");
         navigate("/dashboard");
       }
+      
 
     } catch (error) {
       console.error(
         "Login failed:",
+
         error.response?.data?.message || error.message
       );
+      toast.error("Login failed.")
+
     }
 
 

@@ -20,7 +20,7 @@ const Last60DaysIncomeChart = ({ lastSixtyDay }) => {
     }));
 
     return (
-        <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-md mx-auto ">
+        <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-xl mx-auto ">
             <h2 className="text-lg font-semibold text-gray-700 mb-4 text-center">
                 Last 60 Days Income
             </h2>
