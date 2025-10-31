@@ -6,7 +6,7 @@ import axiosInstance from "../utils/axiosinstance";
 
 
 
-const IncomeSource = ({ incomeSourceDetail }) => {
+const IncomeSource = ({ incomeSourceDetail, fetchIncomeData }) => {
     const [showAll, setShowAll] = useState(false);
 
     const visibleTransactions = showAll
@@ -26,7 +26,7 @@ const IncomeSource = ({ incomeSourceDetail }) => {
             fetchIncomeData();
         } catch (error) {
             console.error("Error deleting income:", error);
-            toast.error("Failed to delete income.");
+            // toast.error("Failed to delete income.");
         }
     };
 
@@ -67,7 +67,7 @@ const IncomeSource = ({ incomeSourceDetail }) => {
                                 className="text-red-500 cursor-pointer hover:text-red-700 transition"
                                 onClick={() => handleDelete(item._id)}
                             />
-                            <span className={`w-[130px] flex justify-center font-semibold ${item.amount > 2000 ? "text-green-600" : "text-red-600"
+                            <span className={`w-[130px] flex justify-center font-semibold ${item.amount > 0 ? "text-green-600" : "text-red-600"
                                 }`}>
                                 {item.amount > 0 ? "+" : "-"} Rs {Math.abs(item.amount)}
                             </span>

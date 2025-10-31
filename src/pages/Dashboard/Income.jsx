@@ -14,21 +14,22 @@ const Income = () => {
   const [showModal, setShowModal] = useState(false);
   const [incomeSourceDetail, setIncomeSourceDetail] = useState([])
 
+
+  const fetchIncomeData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axiosInstance.get("api/v1/income/get", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setIncomeSourceDetail(response?.data)
+      const income = response?.data;
+      const formattedData = Array.isArray(income) ? income : [income];
+      setIncomeData(formattedData);
+    } catch (error) {
+      console.error("Error fetching income data:", error);
+    }
+  };
   useEffect(() => {
-    const fetchIncomeData = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axiosInstance.get("api/v1/income/get", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setIncomeSourceDetail(response?.data)
-        const income = response?.data;
-        const formattedData = Array.isArray(income) ? income : [income];
-        setIncomeData(formattedData);
-      } catch (error) {
-        console.error("Error fetching income data:", error);
-      }
-    };
     fetchIncomeData();
   }, []);
 
@@ -47,7 +48,7 @@ const Income = () => {
     }
   };
 
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -56,7 +57,7 @@ const Income = () => {
     }
   }, [navigate]);
 
-  
+
 
   return (
     <Dashboardlayout>
@@ -75,7 +76,7 @@ const Income = () => {
 
       {/* Income Source */}
 
-      <IncomeSource incomeSourceDetail={incomeSourceDetail} />
+      <IncomeSource incomeSourceDetail={incomeSourceDetail} fetchIncomeData={fetchIncomeData} />
 
     </Dashboardlayout>
   );

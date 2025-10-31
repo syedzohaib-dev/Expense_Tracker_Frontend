@@ -15,6 +15,7 @@ const Signup = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [profileImageUrl, setProfileImageUrl] = useState('')
 
   const [error, setError] = useState(null);
 
@@ -26,7 +27,7 @@ const Signup = () => {
   const handleSignUp = async (e) => {
     e.preventDefault()
 
-    let profileImageUrl = ""
+  
 
     if (!fullName) {
       setError('Please enter your name')
@@ -45,49 +46,76 @@ const Signup = () => {
     setError('')
 
     // signup API call
+    //   try {
+
+
+
+    //     const response = await axiosInstance.post("api/v1/auth/register", {
+    //       fullName,
+    //       email,
+    //       password,
+    //     });
+
+
+
+    //     // Agar login successful ho to token save karo
+
+    //     const { token, user } = response.data;
+
+    //     if (token) {
+    //       localStorage.setItem("token", token);
+    //       updateUser(user)
+    //       navigate("/login");
+    //     }
+
+    //   } catch (error) {
+    //     console.error(
+    //       "Signup failed:",
+    //       error.response?.data?.message || error.message
+    //     );
+    //   }
+    // }
+
     try {
+      // let profileImageUrl = "";
 
-      // if (profilePic) {
-      //   const imgUploadRes = await uploadImage(profilePic);
-      //   profileImageUrl = imgUploadRes.imageUrl || ""
-      // }
+      // Step 1: Upload image to Cloudinary via your backend
+      if (profilePic) {
+        const formData = new FormData();
+        formData.append("image", profilePic);
 
-      // const formData = new FormData();
-      // if (profilePic) formData.append("image", profilePic);
+        const uploadRes = await axiosInstance.post("/api/v1/auth/upload-image", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        console.log(uploadRes)
 
-      const response = await axiosInstance.post("api/v1/auth/register", {
+        setProfileImageUrl(uploadRes.data.imageUrl);
+      }
+
+      console.log(profileImageUrl);
+      
+
+      // Step 2: Register user with image URL
+      const response = await axiosInstance.post("/api/v1/auth/register", {
         fullName,
         email,
         password,
+        profileImageUrl,
       });
-      // formData.append("fullName", fullName);
-      // formData.append("email", email);
-      // formData.append("password", password);
-      // if (profilePic) formData.append("image", profilePic);
 
-      // const response = await axios.post("http://localhost:3000/api/v1/auth/register", formData, {
-      //   headers: { "Content-Type": "multipart/form-data" },
-      // });
-
-
-      // Agar login successful ho to token save karo
 
       const { token, user } = response.data;
 
       if (token) {
         localStorage.setItem("token", token);
-        updateUser(user)
-        navigate("/login");
+        updateUser(user);
+        // navigate("/login");
       }
-
     } catch (error) {
-      console.error(
-        "Signup failed:",
-        error.response?.data?.message || error.message
-      );
+      console.error("Signup failed:", error.response?.data?.message || error.message);
+      setError(error.response?.data?.message || "Signup failed");
     }
-  }
-
+  };
 
   return (
     <Authlayout>

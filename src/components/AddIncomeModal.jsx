@@ -10,7 +10,7 @@ const AddIncomeModal = ({ onClose, onSubmit }) => {
   const [emoji, setEmoji] = useState("");
   const [date, setDate] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,11 +24,11 @@ const AddIncomeModal = ({ onClose, onSubmit }) => {
     };
 
     onSubmit(newIncome);
-    toast.success('Successfully toasted!')
+    // toast.success('Successfully toasted!')
   };
 
   return (
-    
+
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
       <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
@@ -58,7 +58,12 @@ const AddIncomeModal = ({ onClose, onSubmit }) => {
             <input
               type="number"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value
+                if (value >= 0) { // sirf positive ya 0 allow karega
+                  setAmount(value);
+                }
+              }}
               placeholder="Enter amount"
               className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
