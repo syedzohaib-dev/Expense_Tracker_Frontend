@@ -8,7 +8,6 @@ import axiosInstance from "../utils/axiosinstance";
 
 const IncomeSource = ({ incomeSourceDetail }) => {
     const [showAll, setShowAll] = useState(false);
-    // console.log(incomeSourceDetail)
 
     const visibleTransactions = showAll
         ? incomeSourceDetail

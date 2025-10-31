@@ -81,7 +81,6 @@ const Sidemenu = () => {
                 </ul>
             </div>
 
-            {/* Bottom Logout */}
             <div className="py-4 flex justify-center border-t border-fuchsia-700">
                 <button type="button" onClick={handleLogout} className="flex items-center gap-3 hover:bg-fuchsia-700 px-5  py-2 rounded cursor-pointer">
                     <FaSignOutAlt />

@@ -33,7 +33,7 @@ const RecentTransactions = ({ transactionsDetail }) => {
                                 }`}>
                                 💰
                             </div>
-                            <span className="text-gray-700 font-medium">{item.source} </span>
+                            <span className="text-gray-700 font-medium">{item.source || item.category} </span>
                         </div>
                         <div className="flex items-center gap-2">
                             <span className={`font-semibold ${item.amount > 0 ? "text-green-600" : "text-red-600"

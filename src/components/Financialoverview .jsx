@@ -9,7 +9,6 @@ import {
 } from "recharts";
 
 const Financialoverview = ({ balance, income, expense }) => {
-    // Sample data — you can replace these values with data from your API
     const data = [
         { name: "Balance", value: balance },
         { name: "Income", value: income },

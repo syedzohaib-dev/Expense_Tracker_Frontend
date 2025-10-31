@@ -55,7 +55,6 @@ const Last30DaysExpenseChart = ({ lastThirtyDay }) => {
         </div>
       </div>
 
-      {/* Legend */}
       <div className="flex justify-center flex-wrap gap-4 mt-4">
         {data?.map((item, i) => (
           <div key={i} className="flex items-center gap-2">

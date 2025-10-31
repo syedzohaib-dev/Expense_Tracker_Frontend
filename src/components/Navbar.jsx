@@ -5,11 +5,9 @@ import { FaBars } from "react-icons/fa";
 
 const Navbar = ({ onMenuClick }) => {
     const { user } = useContext(UserContext)
-    // const {  fullName, profileImageUrl } = user
 
     return (
         <nav className="fixed top-0 left-0 right-0 md:left-60 bg-white p-4 shadow-md flex items-center justify-between z-40">
-            {/* Menu Button (Visible only on mobile) */}
             <button
                 onClick={onMenuClick}
                 className="md:hidden text-2xl text-purple-700 focus:outline-none"

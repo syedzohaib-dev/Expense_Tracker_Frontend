@@ -17,7 +17,6 @@ const ExpenseOverview = () => {
     const [expenseData, setExpenseData] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // ✅ Fetch Expense Data
     const fetchExpenseData = async () => {
         try {
             const token = localStorage.getItem("token");
@@ -36,7 +35,6 @@ const ExpenseOverview = () => {
         fetchExpenseData();
     }, []);
 
-    // ✅ Prepare Data for Chart
     const chartData = expenseData.map((item) => ({
         date: new Date(item.date).toLocaleDateString("en-GB", {
             day: "2-digit",

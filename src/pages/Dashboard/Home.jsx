@@ -7,6 +7,7 @@ import Financialoverview from "../../components/Financialoverview ";
 import Last60DaysIncomeChart from "../../components/Last60DaysIncomeChart";
 import Last30DaysExpenseChart from "../../components/Last30DaysExpenseChart ";
 import axiosInstance from "../../utils/axiosinstance";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [balance, setBalance] = useState(0);
@@ -17,6 +18,14 @@ const Home = () => {
   const [lastSixtyDay, setLastSixtyDay] = useState({})
   const [lastThirtyDay, setLastThirtyDay] = useState({})
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login"); // redirect to login if no token
+    }
+  }, [navigate]);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -91,7 +100,6 @@ const Home = () => {
         </div>
 
 
-        {/* Finential Overview */}
 
         <RecentTransactions transactionsDetail={transactionsDetail} />
 

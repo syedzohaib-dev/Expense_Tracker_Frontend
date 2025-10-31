@@ -5,6 +5,7 @@ import AddExpenseModal from '../../components/AddExpenseModal';
 import ExpenseDetail from '../../components/ExpenseDetail';
 import axios from 'axios';
 import axiosInstance from '../../utils/axiosinstance';
+import { useNavigate } from 'react-router-dom';
 
 const Expense = () => {
   const [showModal, setShowModal] = useState(false);
@@ -45,7 +46,14 @@ const Expense = () => {
     fetchExpenseData();
   }, [])
 
+ const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login"); // redirect to login if no token
+    }
+  }, [navigate]);
 
 
   return (

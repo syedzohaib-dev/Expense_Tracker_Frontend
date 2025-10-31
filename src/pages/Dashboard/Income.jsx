@@ -6,6 +6,7 @@ import axios from "axios";
 import { Toaster } from 'react-hot-toast';
 import IncomeSource from "../../components/IncomeSource";
 import axiosInstance from "../../utils/axiosinstance";
+import { useNavigate } from "react-router-dom";
 
 
 const Income = () => {
@@ -45,6 +46,15 @@ const Income = () => {
       console.error("Error adding income:", error);
     }
   };
+
+   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login"); // redirect to login if no token
+    }
+  }, [navigate]);
 
   
 
