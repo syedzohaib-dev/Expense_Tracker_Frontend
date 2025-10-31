@@ -5,6 +5,7 @@ import AddIncomeModal from "../../components/AddIncomeModal";
 import axios from "axios";
 import { Toaster } from 'react-hot-toast';
 import IncomeSource from "../../components/IncomeSource";
+import axiosInstance from "../../utils/axiosinstance";
 
 
 const Income = () => {
@@ -16,7 +17,7 @@ const Income = () => {
     const fetchIncomeData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:3000/api/v1/income/get", {
+        const response = await axiosInstance.get("api/v1/income/get", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setIncomeSourceDetail(response?.data)
@@ -34,7 +35,7 @@ const Income = () => {
   const handleAddIncome = async (formData) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.post("http://localhost:3000/api/v1/income/add", formData, {
+      await axiosInstance.post("api/v1/income/add", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setShowModal(false);
@@ -45,22 +46,7 @@ const Income = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const fetchIncomeData = async () => {
-  //     try {
-  //       const token = localStorage.getItem("token");
-  //       const response = await axios.get("http://localhost:3000/api/v1/income/get", {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       });
-  //       console.log(response?.data)
-
-
-  //     } catch (error) {
-  //       console.error("Error fetching dashboard data:", error);
-  //     }
-  //   };
-  //   fetchIncomeData();
-  // }, []);
+  
 
   return (
     <Dashboardlayout>

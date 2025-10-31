@@ -7,6 +7,7 @@ import ProfilePhotoSelector from '../../components/inputs/ProfilePhotoSelector.j
 import { useContext } from 'react'
 import { UserContext } from '../../context/userContext.jsx'
 import axios from 'axios'
+import axiosInstance from '../../utils/axiosinstance.js'
 
 
 const Signup = () => {
@@ -54,7 +55,7 @@ const Signup = () => {
       // const formData = new FormData();
       // if (profilePic) formData.append("image", profilePic);
 
-      const response = await axios.post("http://localhost:3000/api/v1/auth/register", {
+      const response = await axiosInstance.post("api/v1/auth/register", {
         fullName,
         email,
         password,

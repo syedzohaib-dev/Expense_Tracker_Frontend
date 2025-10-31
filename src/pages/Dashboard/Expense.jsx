@@ -4,6 +4,7 @@ import ExpenseOverview from '../../components/ExpenseOverview'
 import AddExpenseModal from '../../components/AddExpenseModal';
 import ExpenseDetail from '../../components/ExpenseDetail';
 import axios from 'axios';
+import axiosInstance from '../../utils/axiosinstance';
 
 const Expense = () => {
   const [showModal, setShowModal] = useState(false);
@@ -14,7 +15,7 @@ const Expense = () => {
   const handleAddExpense = async (formData) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.post("http://localhost:3000/api/v1/expense/add", formData, {
+      await axiosInstance.post("api/v1/expense/add", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setShowModal(false);
@@ -29,7 +30,7 @@ const Expense = () => {
   const fetchExpenseData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3000/api/v1/expense/get", {
+      const response = await axiosInstance.get("api/v1/expense/get", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setExpenseDetail(response?.data)

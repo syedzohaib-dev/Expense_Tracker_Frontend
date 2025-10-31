@@ -6,6 +6,7 @@ import RecentTransactions from "../../components/RecentTransactions ";
 import Financialoverview from "../../components/Financialoverview ";
 import Last60DaysIncomeChart from "../../components/Last60DaysIncomeChart";
 import Last30DaysExpenseChart from "../../components/Last30DaysExpenseChart ";
+import axiosInstance from "../../utils/axiosinstance";
 
 const Home = () => {
   const [balance, setBalance] = useState(0);
@@ -21,7 +22,7 @@ const Home = () => {
     const fetchDashboardData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:3000/api/v1/dashboard", {
+        const response = await axiosInstance.get("api/v1/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log(response?.data)

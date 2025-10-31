@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import AddExpenseModal from "./AddExpenseModal";
 import toast from "react-hot-toast";
+import axiosInstance from "../utils/axiosinstance";
 
 const ExpenseOverview = () => {
     const [expenseData, setExpenseData] = useState([]);
@@ -20,7 +21,7 @@ const ExpenseOverview = () => {
     const fetchExpenseData = async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await axios.get("http://localhost:3000/api/v1/expense/get", {
+            const response = await axiosInstance.get("api/v1/expense/get", {
                 headers: { Authorization: `Bearer ${token}` },
             });
             console.log(response?.data)
@@ -45,14 +46,14 @@ const ExpenseOverview = () => {
     }));
 
    
-    
+
    
   const handleDownloadExcel = async () => {
   try {
     const token = localStorage.getItem("token");
 
-    const response = await axios.get(
-      "http://localhost:3000/api/v1/expense/downloadexcel",
+    const response = await axiosInstance.get(
+      "api/v1/expense/downloadexcel",
       {
         responseType: "arraybuffer",
         headers: {

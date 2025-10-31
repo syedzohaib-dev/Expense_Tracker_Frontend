@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";
+import axiosInstance from "../utils/axiosinstance";
 
 
 
@@ -16,8 +17,8 @@ const ExpenseDetail = ({ expenseDetail,fetchExpenseData }) => {
     const handleDelete = async (id) => {
         try {
             const token = localStorage.getItem("token");
-            const response = await axios.delete(
-                `http://localhost:3000/api/v1/expense/${id}`,
+            const response = await axiosInstance.delete(
+                `api/v1/expense/${id}`,
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 }

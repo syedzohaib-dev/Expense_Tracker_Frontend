@@ -7,6 +7,7 @@ import axios from 'axios'
 import { useContext } from 'react'
 import { UserContext } from '../../context/userContext.jsx'
 import toast from "react-hot-toast";
+import axiosInstance from '../../utils/axiosinstance.js'
 
 
 const Login = () => {
@@ -36,7 +37,7 @@ const Login = () => {
     // login API call
 
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/auth/login", {
+      const response = await axiosInstance.post("api/v1/auth/login", {
         email,
         password,
       });
@@ -51,7 +52,7 @@ const Login = () => {
         toast.success("Login success");
         navigate("/dashboard");
       }
-      
+
 
     } catch (error) {
       console.error(

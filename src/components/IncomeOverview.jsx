@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
+import axiosInstance from "../utils/axiosinstance";
 
 const IncomeOverview = ({ incomeData, onAddIncome }) => {
   if (!incomeData || incomeData.length === 0) {
@@ -32,8 +33,8 @@ const IncomeOverview = ({ incomeData, onAddIncome }) => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await axios.get(
-        "http://localhost:3000/api/v1/income/downloadexcel",
+      const response = await axiosInstance.get(
+        "api/v1/income/downloadexcel",
         {
           responseType: "arraybuffer",
           headers: {
