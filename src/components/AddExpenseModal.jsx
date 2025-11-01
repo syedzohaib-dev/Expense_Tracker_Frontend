@@ -69,7 +69,7 @@ const AddExpenseModal = ({ onClose, onSubmit }) => {
                                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                                 className="border border-gray-300 px-3 py-2 rounded-lg hover:bg-gray-100"
                             >
-                                {emoji || "😀"}
+                                {emoji || "🚫"}
                             </button>
                             {showEmojiPicker && (
                                 <div className="absolute mt-2 z-50">
