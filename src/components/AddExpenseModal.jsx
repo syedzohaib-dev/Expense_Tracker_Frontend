@@ -55,7 +55,12 @@ const AddExpenseModal = ({ onClose, onSubmit }) => {
                         <input
                             type="number"
                             value={amount}
-                            onChange={(e) => setAmount(e.target.value)}
+                            onChange={(e) => {
+                                const value = e.target.value
+                                if (value === "" || Number(value) > 0) {
+                                    setAmount(value);
+                                }
+                            }}
                             placeholder="Enter amount"
                             className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -23,7 +23,7 @@ const App = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/dashboard' element={<Home />} />
-          <Route path='/income' element={<Income />} />  
+          <Route path='/income' element={<Income />} />
           <Route path='/expense' element={<Expense />} />
         </Routes>
       </Router>
@@ -38,11 +38,26 @@ const App = () => {
 export default App
 
 const Root = () => {
-  const isAuthenticated = localStorage.getItem("token")
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("token")
+  );
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setIsAuthenticated(!!localStorage.getItem("token"));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    // cleanup
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   return isAuthenticated ? (
-    <Navigate to='/dashboard' />) :
-    (<Navigate to='/login' />)
+    <Navigate to="/dashboard" />
+  ) : (
+    <Navigate to="/login" />
+  );
+
 }
 

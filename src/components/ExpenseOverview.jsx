@@ -8,9 +8,7 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from "recharts";
-import axios from "axios";
 import AddExpenseModal from "./AddExpenseModal";
-import toast from "react-hot-toast";
 import axiosInstance from "../utils/axiosinstance";
 
 const ExpenseOverview = () => {
@@ -43,38 +41,38 @@ const ExpenseOverview = () => {
         amount: Number(item.amount),
     }));
 
-   
 
-   
-  const handleDownloadExcel = async () => {
-  try {
-    const token = localStorage.getItem("token");
 
-    const response = await axiosInstance.get(
-      "api/v1/expense/downloadexcel",
-      {
-        responseType: "arraybuffer",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
 
-    const blob = new Blob([response.data], {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    });
+    const handleDownloadExcel = async () => {
+        try {
+            const token = localStorage.getItem("token");
 
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "expense_details.xlsx");
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-  } catch (error) {
-    console.error("Error downloading Excel:", error);
-  }
-};
+            const response = await axiosInstance.get(
+                "api/v1/expense/downloadexcel",
+                {
+                    responseType: "arraybuffer",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            const blob = new Blob([response.data], {
+                type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            });
+
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "expense_details.xlsx");
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } catch (error) {
+            console.error("Error downloading Excel:", error);
+        }
+    };
 
 
     return (
@@ -82,18 +80,18 @@ const ExpenseOverview = () => {
             <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-gray-700">Expense Overview</h2>
                 <div className="flex gap-2">
-                <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-md transition"
-                >
-                    + Add Expense
-                </button>
-                <button
-                    onClick={handleDownloadExcel}
-                    className="bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-md transition"
-                >
-                    📥 Download Excel
-                </button>
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-md transition"
+                    >
+                        + Add Expense
+                    </button>
+                    <button
+                        onClick={handleDownloadExcel}
+                        className="bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-md transition"
+                    >
+                        📥 Download Excel
+                    </button>
                 </div>
             </div>
 
@@ -139,10 +137,9 @@ const ExpenseOverview = () => {
                     onSubmit={async (newExpense) => {
                         try {
                             const token = localStorage.getItem("token");
-                            await axios.post("http://localhost:3000/api/v1/expense/add", newExpense, {
+                            await axiosInstance.post("api/v1/expense/add", newExpense, {
                                 headers: { Authorization: `Bearer ${token}` },
                             });
-                            toast.success("Expense added successfully!");
                             setIsModalOpen(false);
                             fetchExpenseData();
                         } catch (error) {

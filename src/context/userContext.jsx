@@ -26,6 +26,7 @@ const UserProvider = ({ children }) => {
                 const response = await axiosInstance.get("api/v1/auth/getUser", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
+                console.log(response?.data)
                 setUser(response.data);
             } catch (error) {
                 console.error("Error fetching user:", error);

@@ -3,7 +3,6 @@ import Dashboardlayout from '../../components/layouts/Dashboardlayout'
 import ExpenseOverview from '../../components/ExpenseOverview'
 import AddExpenseModal from '../../components/AddExpenseModal';
 import ExpenseDetail from '../../components/ExpenseDetail';
-import axios from 'axios';
 import axiosInstance from '../../utils/axiosinstance';
 import { useNavigate } from 'react-router-dom';
 

@@ -8,7 +8,7 @@ const RecentTransactions = ({ transactionsDetail }) => {
 
     const visibleTransactions = showAll
         ? transactionsDetail
-        : transactionsDetail.slice(0, 3);
+        : transactionsDetail.slice(0, 4);
 
 
     return (
@@ -27,20 +27,33 @@ const RecentTransactions = ({ transactionsDetail }) => {
 
                     <div className="flex items-center justify-between" key={index}>
                         <div className="flex items-center gap-3">
-                            <div className={`p-3 rounded-full ${item.amount > 0
-                                ? "bg-green-100 text-green-600"
-                                : "bg-red-100 text-red-600"
-                                }`}>
-                                💰
-                            </div>
+                            {
+                                item.icon ? (<div className={`p-3 rounded-full ${item.amount > 0
+                                    ? "bg-green-100 text-green-600"
+                                    : "bg-red-100 text-red-600"
+                                    }`}>
+                                    {item.icon}
+                                </div>) : (<div className={`p-3 rounded-full ${item.amount > 0
+                                    ? "bg-green-100 text-green-600"
+                                    : "bg-red-100 text-red-600"
+                                    }`}>
+                                    💰
+                                </div>)
+                            }
+
                             <span className="text-gray-700 font-medium">{item.source || item.category} </span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <span className={`font-semibold ${item.amount > 0 ? "text-green-600" : "text-red-600"
-                                }`}>
-                                {item.amount > 0 ? "+" : "-"} Rs {Math.abs(item.amount)}
+                            <span className={`font-semibold ${item.category ? "text-red-600" : "text-green-600" ||
+                                item.category ? "text-green-600" : "text-red-600"}`}>
+
+                                {item.category ? "-" : "+" || item.source ? "+" : "-"}
+                                Rs {Math.abs(item.amount)}
+                                {/* {item.amount ? "+" : "-" && item.category ? "-" : "+"} Rs {Math.abs(item.amount)} */}
+
                             </span>
-                            <span>{item.amount > 0 ? "⬆️" : "⬇️"}</span>
+                            <span></span>
+                            <span>{item.source ? "🟢" : "🔻" || item.category ? "🔻" : "🟢"}</span>
                         </div>
                     </div>
 

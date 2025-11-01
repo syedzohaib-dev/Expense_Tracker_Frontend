@@ -57,7 +57,7 @@ const AddIncomeModal = ({ onClose, onSubmit }) => {
               value={amount}
               onChange={(e) => {
                 const value = e.target.value
-                if (value >= 0) { // sirf positive ya 0 allow karega
+                if (value === "" || Number(value) > 0) {
                   setAmount(value);
                 }
               }}
