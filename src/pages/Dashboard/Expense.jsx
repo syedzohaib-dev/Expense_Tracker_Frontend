@@ -21,7 +21,7 @@ const Expense = () => {
       });
 
       setShowModal(false);
-      // Refresh income data
+     
       window.location.reload();
     } catch (error) {
       console.error("Error adding income:", error);
@@ -47,12 +47,12 @@ const Expense = () => {
     fetchExpenseData();
   }, [])
 
- const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login"); // redirect to login if no token
+      navigate("/login"); 
     }
   }, [navigate]);
 

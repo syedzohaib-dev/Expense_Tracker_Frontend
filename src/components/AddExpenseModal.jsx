@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
-import toast from 'react-hot-toast';
 
 
 
@@ -22,7 +21,6 @@ const AddExpenseModal = ({ onClose, onSubmit }) => {
             icon: emoji,
             date,
         };
-        toast.success('Successfully toasted!')
         onSubmit(newExpense);
     };
 

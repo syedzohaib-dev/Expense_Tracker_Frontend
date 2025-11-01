@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import Dashboardlayout from "../../components/layouts/Dashboardlayout";
 import IncomeOverview from "../../components/IncomeOverview";
 import AddIncomeModal from "../../components/AddIncomeModal";
-import axios from "axios";
-import { Toaster } from 'react-hot-toast';
 import IncomeSource from "../../components/IncomeSource";
 import axiosInstance from "../../utils/axiosinstance";
 import { useNavigate } from "react-router-dom";
@@ -33,7 +31,6 @@ const Income = () => {
     fetchIncomeData();
   }, []);
 
-  // Handle new income submit
   const handleAddIncome = async (formData) => {
     try {
       const token = localStorage.getItem("token");
@@ -41,8 +38,10 @@ const Income = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setShowModal(false);
+
       // Refresh income data
       window.location.reload();
+
     } catch (error) {
       console.error("Error adding income:", error);
     }
@@ -61,7 +60,6 @@ const Income = () => {
 
   return (
     <Dashboardlayout>
-      <Toaster position="top-center" reverseOrder={false} />
       <IncomeOverview
         incomeData={incomeData}
         onAddIncome={() => setShowModal(true)}

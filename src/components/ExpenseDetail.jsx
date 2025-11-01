@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { FaTrash } from "react-icons/fa";
-import toast from "react-hot-toast";
 import axiosInstance from "../utils/axiosinstance";
 
 
 
 const ExpenseDetail = ({ expenseDetail, fetchExpenseData }) => {
     const [showAll, setShowAll] = useState(false);
-    // console.log(incomeSourceDetail)
 
     const visibleTransactions = showAll
         ? expenseDetail
@@ -23,7 +20,6 @@ const ExpenseDetail = ({ expenseDetail, fetchExpenseData }) => {
                     headers: { Authorization: `Bearer ${token}` },
                 }
             );
-            toast.success("Income deleted successfully!");
             fetchExpenseData();
         } catch (error) {
             console.error("Error deleting income:", error);
@@ -65,11 +61,10 @@ const ExpenseDetail = ({ expenseDetail, fetchExpenseData }) => {
                                 className="text-red-500 cursor-pointer hover:text-red-700 transition"
                                 onClick={() => handleDelete(item._id)}
                             />
-                            <span className={`w-[130px] flex justify-center font-semibold ${item.amount > 2000 ? "text-green-600" : "text-red-600"
+                            <span className={`w-[130px] flex justify-center font-semibold ${item.amount > 0 ? "text-red-600" : "text-green-600"
                                 }`}>
-                                {item.amount > 0 ? "+" : "-"} Rs {Math.abs(item.amount)}
+                                {item.amount > 0 ? "- Rs " + Math.abs(item.amount) : "+ Rs " + item.amount}
                             </span>
-                            <span>{item.amount > 2000 ? "⬆️" : "⬇️"}</span>
                         </div>
                     </div>
 

@@ -79,7 +79,6 @@ const ExpenseOverview = () => {
 
     return (
         <div className="bg-white p-6 rounded-2xl shadow-md w-full  mx-auto">
-            {/* Header */}
             <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-gray-700">Expense Overview</h2>
                 <div className="flex gap-2">

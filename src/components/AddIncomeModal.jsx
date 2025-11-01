@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
-import toast from 'react-hot-toast';
-
 
 
 const AddIncomeModal = ({ onClose, onSubmit }) => {
@@ -24,7 +22,6 @@ const AddIncomeModal = ({ onClose, onSubmit }) => {
     };
 
     onSubmit(newIncome);
-    // toast.success('Successfully toasted!')
   };
 
   return (

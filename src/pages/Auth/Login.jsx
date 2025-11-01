@@ -3,12 +3,9 @@ import Authlayout from '../../components/layouts/Authlayout'
 import { Link, useNavigate } from 'react-router-dom'
 import Input from '../../components/inputs/Input.jsx'
 import { validateEmail } from '../../utils/helper.js'
-import axios from 'axios'
 import { useContext } from 'react'
 import { UserContext } from '../../context/userContext.jsx'
-import toast from "react-hot-toast";
 import axiosInstance from '../../utils/axiosinstance.js'
-
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -22,7 +19,12 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!email) {
+     if (!email) {
+    setError("Please enter your email address");
+    return;
+  }
+
+    if (validateEmail(email)) {
       setError('Please enter a valid email address.')
       return;
     }
@@ -49,8 +51,8 @@ const Login = () => {
       if (token) {
         localStorage.setItem("token", token);
         updateUser(user)
-        toast.success("Login success");
         navigate("/dashboard");
+
       }
 
 
@@ -60,7 +62,6 @@ const Login = () => {
 
         error.response?.data?.message || error.message
       );
-      toast.error("Login failed.")
 
     }
 

@@ -6,7 +6,6 @@ import { validateEmail } from '../../utils/helper.js'
 import ProfilePhotoSelector from '../../components/inputs/ProfilePhotoSelector.jsx'
 import { useContext } from 'react'
 import { UserContext } from '../../context/userContext.jsx'
-import axios from 'axios'
 import axiosInstance from '../../utils/axiosinstance.js'
 
 
@@ -15,7 +14,6 @@ const Signup = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [profileImageUrl, setProfileImageUrl] = useState('')
 
   const [error, setError] = useState(null);
 
@@ -27,7 +25,7 @@ const Signup = () => {
   const handleSignUp = async (e) => {
     e.preventDefault()
 
-  
+
 
     if (!fullName) {
       setError('Please enter your name')
@@ -35,10 +33,19 @@ const Signup = () => {
     }
 
     if (!email) {
+      setError("Please enter your email address");
+      return;
+    }
+
+    if (validateEmail(email)) {
       setError('Please enter a valid email address.')
       return;
     }
     if (!password) {
+      setError('Please enter the passwod')
+      return;
+    }
+    if (password < 8) {
       setError('Please enter the passwod')
       return;
     }
@@ -48,30 +55,28 @@ const Signup = () => {
     // signup API call
 
     try {
-      // let profileImageUrl = "";
 
-      // Step 1: Upload image to Cloudinary via your backend
+      let uploadedImageUrl = "";
+
+
       if (profilePic) {
         const formData = new FormData();
         formData.append("image", profilePic);
 
-        const uploadRes = await axiosInstance.post("/api/v1/auth/upload-image", formData, {
+        const uploadRes = await axiosInstance.post("api/v1/auth/upload-image", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        console.log(uploadRes)
 
-        setProfileImageUrl(uploadRes.data.imageUrl);
+        uploadedImageUrl = uploadRes.data.imageUrl;
       }
 
-      console.log(profileImageUrl);
-      
 
-      // Step 2: Register user with image URL
+
       const response = await axiosInstance.post("/api/v1/auth/register", {
         fullName,
         email,
         password,
-        profileImageUrl,
+        profileImageUrl: uploadedImageUrl,
       });
 
 
@@ -81,6 +86,8 @@ const Signup = () => {
         localStorage.setItem("token", token);
         updateUser(user);
         navigate("/login");
+
+
       }
     } catch (error) {
       console.error("Signup failed:", error.response?.data?.message || error.message);
