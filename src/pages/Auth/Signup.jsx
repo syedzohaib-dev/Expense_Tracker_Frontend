@@ -21,7 +21,6 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  // Handle Sign Up Form Submit
   const handleSignUp = async (e) => {
     e.preventDefault()
 

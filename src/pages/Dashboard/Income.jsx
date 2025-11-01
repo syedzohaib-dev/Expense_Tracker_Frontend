@@ -39,7 +39,7 @@ const Income = () => {
       });
       setShowModal(false);
 
-      // Refresh income data
+   
       window.location.reload();
 
     } catch (error) {
@@ -52,7 +52,7 @@ const Income = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login"); // redirect to login if no token
+      navigate("/login"); 
     }
   }, [navigate]);
 

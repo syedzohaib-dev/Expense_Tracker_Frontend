@@ -59,7 +59,7 @@ const Home = () => {
         <h2 className="text-xl font-semibold text-gray-700">Overview</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Total Balance */}
+        
           <div className="bg-white rounded-xl shadow-sm  p-6 flex items-center justify-between">
             <div>
               <h3 className="text-sm text-gray-500">Total Balance</h3>
@@ -72,7 +72,7 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Total Income */}
+        
           <div className="bg-white rounded-xl shadow-sm  p-6 flex items-center justify-between">
             <div>
               <h3 className="text-sm text-gray-500">Total Income</h3>
@@ -85,7 +85,7 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Total Expense */}
+        
           <div className="bg-white rounded-xl shadow-sm  p-6 flex items-center justify-between">
             <div>
               <h3 className="text-sm text-gray-500">Total Expense</h3>

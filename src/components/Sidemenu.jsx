@@ -14,9 +14,9 @@ const Sidemenu = () => {
 
 
 
-    const location = useLocation(); // get current route
+    const location = useLocation(); 
     const { user, clearUser } = useContext(UserContext)
-    // console.log(user)
+
     return (
         <aside className="bg-fuchsia-600 text-white w-60 border-black  min-h-screen flex flex-col justify-between">
             {/* Top Menu */}
