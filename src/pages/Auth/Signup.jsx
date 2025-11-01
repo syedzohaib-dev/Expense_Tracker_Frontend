@@ -37,7 +37,7 @@ const Signup = () => {
       return;
     }
 
-    if (validateEmail(email)) {
+    if (!validateEmail(email)) {
       setError('Please enter a valid email address.')
       return;
     }
@@ -46,7 +46,7 @@ const Signup = () => {
       return;
     }
     if (password < 8) {
-      setError('Please enter the passwod')
+      setError('Please enter 8 character passwod')
       return;
     }
 
