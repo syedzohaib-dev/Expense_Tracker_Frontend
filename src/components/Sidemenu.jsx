@@ -9,12 +9,12 @@ const Sidemenu = () => {
     const handleLogout = () => {
         localStorage.clear();
         clearUser();
-        navigate('/login')
+        navigate('/login');
     }
 
 
 
-    const location = useLocation(); 
+    const location = useLocation();
     const { user, clearUser } = useContext(UserContext)
 
     return (

@@ -28,17 +28,23 @@ const RecentTransactions = ({ transactionsDetail }) => {
                     <div className="flex items-center justify-between" key={index}>
                         <div className="flex items-center gap-3">
                             {
-                                item.icon ? (<div className={`p-3 rounded-full ${item.amount > 0
-                                    ? "bg-green-100 text-green-600"
-                                    : "bg-red-100 text-red-600"
-                                    }`}>
-                                    {item.icon}
-                                </div>) : (<div className={`p-3 rounded-full ${item.amount > 0
-                                    ? "bg-green-100 text-green-600"
-                                    : "bg-red-100 text-red-600"
-                                    }`}>
-                                    💰
-                                </div>)
+                                item.icon ? (
+                                    <div className={`min-w-10 h-10 flex justify-center items-center rounded-full ${item.amount > 0
+                                        ? "bg-green-100 text-green-600"
+                                        : "bg-red-100 text-red-600"
+                                        }`}>
+                                        {item.icon}
+                                    </div>
+                                )
+                                    :
+                                    (
+                                        <div className={`min-w-10 h-10 flex justify-center items-center rounded-full ${item.amount > 0
+                                            ? "bg-green-100 text-green-600"
+                                            : "bg-red-100 text-red-600"
+                                            }`}>
+                                            💰
+                                        </div>
+                                    )
                             }
 
                             <span className="text-gray-700 font-medium">{item.source || item.category} </span>

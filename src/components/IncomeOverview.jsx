@@ -68,15 +68,15 @@ const IncomeOverview = ({ incomeData, onAddIncome }) => {
         <div className="flex gap-2">
           <button
             onClick={onAddIncome}
-            className="bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-md transition"
+            className="bg-purple-600 hover:bg-purple-700 cursor-pointer text-white text-sm px-4 py-2 rounded-md transition"
           >
-            + Add Income
+            ✚ Add Income
           </button>
           <button
             onClick={handleDownloadExcel}
-            className="bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-md transition"
+            className="bg-[#107c41] hover:bg-[#0e6b38] cursor-pointer text-white text-sm px-4 py-2 rounded-md transition"
           >
-            📥 Download Excel
+            📋 Download Excel
           </button>
         </div>
       </div>
