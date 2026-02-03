@@ -6,6 +6,7 @@ import axiosInstance from "../utils/axiosinstance";
 
 const ExpenseDetail = ({ expenseDetail, fetchExpenseData }) => {
     const [showAll, setShowAll] = useState(false);
+    const token = localStorage.getItem("expense_token");
 
     const visibleTransactions = showAll
         ? expenseDetail
@@ -13,7 +14,6 @@ const ExpenseDetail = ({ expenseDetail, fetchExpenseData }) => {
 
     const handleDelete = async (id) => {
         try {
-            const token = localStorage.getItem("token");
             const response = await axiosInstance.delete(
                 `api/v1/expense/${id}`,
                 {

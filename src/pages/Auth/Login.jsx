@@ -49,7 +49,7 @@ const Login = () => {
       const { token, user } = response.data;
 
       if (token) {
-        localStorage.setItem("token", token);
+        localStorage.setItem("expense_token", token);
         updateUser(user)
         navigate("/dashboard");
 

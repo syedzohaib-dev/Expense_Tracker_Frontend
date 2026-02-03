@@ -7,6 +7,8 @@ import axiosInstance from "../utils/axiosinstance";
 
 
 const IncomeSource = ({ incomeSourceDetail, fetchIncomeData }) => {
+    const token = localStorage.getItem("expense_token");
+
     const [showAll, setShowAll] = useState(false);
 
     const visibleTransactions = showAll
@@ -15,7 +17,6 @@ const IncomeSource = ({ incomeSourceDetail, fetchIncomeData }) => {
 
     const handleDelete = async (id) => {
         try {
-            const token = localStorage.getItem("token");
             const response = await axiosInstance.delete(
                 `api/v1/income/${id}`,
                 {

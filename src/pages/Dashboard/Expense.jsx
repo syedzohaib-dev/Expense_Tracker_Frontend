@@ -7,6 +7,7 @@ import axiosInstance from '../../utils/axiosinstance';
 import { useNavigate } from 'react-router-dom';
 
 const Expense = () => {
+    const token = localStorage.getItem("expense_token");
   const [showModal, setShowModal] = useState(false);
   const [expenseData, setExpenseData] = useState([])
   const [expenseDetail, setExpenseDetail] = useState([])
@@ -14,7 +15,6 @@ const Expense = () => {
 
   const handleAddExpense = async () => {
     try {
-      const token = localStorage.getItem("token");
       await axiosInstance.post("api/v1/expense/add", { amount, category, date }, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -30,7 +30,6 @@ const Expense = () => {
 
   const fetchExpenseData = async () => {
     try {
-      const token = localStorage.getItem("token");
       const response = await axiosInstance.get("api/v1/expense/get", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -49,7 +48,6 @@ const Expense = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login"); 
     }

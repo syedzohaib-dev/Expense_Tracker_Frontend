@@ -7,7 +7,8 @@ const Sidemenu = () => {
     const navigate = useNavigate()
 
     const handleLogout = () => {
-        localStorage.clear();
+
+        localStorage.clear("expense_token");
         clearUser();
         navigate('/login');
     }
@@ -18,13 +19,13 @@ const Sidemenu = () => {
     const { user, clearUser } = useContext(UserContext)
 
     return (
-        <aside className="bg-fuchsia-600 text-white w-60 border-black  min-h-screen flex flex-col justify-between">
+        <aside className="bg-white text-black w-60 border-black  min-h-screen flex flex-col justify-between">
             {/* Top Menu */}
             <div>
-                <div className="p-5 text-2xl font-semibold border-b border-fuchsia-700">
+                <div className="p-5 text-2xl font-semibold">
                     Expense Tracker
                 </div>
-                <div className="flex flex-col items-center p-6 border-b border-fuchsia-700 ">
+                <div className="flex flex-col items-center p-6 ">
                     {user?.profileImageUrl ? (<img
                         src={user?.profileImageUrl}
                         alt="User img"
@@ -42,9 +43,10 @@ const Sidemenu = () => {
 
                     {/* Home */}
                     <li
-                        className={`flex items-center gap-3 px-3 py-2 rounded cursor-pointer transition-colors ${location.pathname === "/dashboard"
-                            ? "bg-fuchsia-800"
-                            : "hover:bg-fuchsia-700"
+                        className={`flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer
+                             transition-colors ${location.pathname === "/dashboard"
+                                ? "bg-purple-600"
+                                : "bg-purple-200"
                             }`}
                     >
                         <FaHome />
@@ -55,9 +57,9 @@ const Sidemenu = () => {
 
                     {/* Income */}
                     <li
-                        className={`flex items-center gap-3 px-3 py-2 rounded cursor-pointer transition-colors ${location.pathname === "/income"
-                            ? "bg-fuchsia-800"
-                            : "hover:bg-fuchsia-700"
+                        className={`flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer transition-colors ${location.pathname === "/income"
+                            ? "bg-purple-600"
+                            : "bg-purple-200"
                             }`}
                     >
                         <FaMoneyBillWave />
@@ -68,9 +70,9 @@ const Sidemenu = () => {
 
                     {/* Expense */}
                     <li
-                        className={`flex items-center gap-3 px-3 py-2 rounded cursor-pointer transition-colors ${location.pathname === "/expense"
-                            ? "bg-fuchsia-800"
-                            : "hover:bg-fuchsia-700"
+                        className={`flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer transition-colors ${location.pathname === "/expense"
+                            ? "bg-purple-600"
+                            : "bg-purple-200"
                             }`}
                     >
                         <FaChartPie />

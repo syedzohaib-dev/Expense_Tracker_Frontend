@@ -53,12 +53,12 @@ export default App
 
 const Root = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
-    !!localStorage.getItem("token")
+    !!localStorage.getItem("expense_token")
   );
 
   useEffect(() => {
     const handleStorageChange = () => {
-      setIsAuthenticated(!!localStorage.getItem("token"));
+      setIsAuthenticated(!!localStorage.getItem("expense_token"));
     };
 
     window.addEventListener("storage", handleStorageChange);

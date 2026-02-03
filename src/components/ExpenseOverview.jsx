@@ -12,12 +12,13 @@ import AddExpenseModal from "./AddExpenseModal";
 import axiosInstance from "../utils/axiosinstance";
 
 const ExpenseOverview = () => {
+    const token = localStorage.getItem("expense_token");
+
     const [expenseData, setExpenseData] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const fetchExpenseData = async () => {
         try {
-            const token = localStorage.getItem("token");
             const response = await axiosInstance.get("api/v1/expense/get", {
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -46,7 +47,6 @@ const ExpenseOverview = () => {
 
     const handleDownloadExcel = async () => {
         try {
-            const token = localStorage.getItem("token");
 
             const response = await axiosInstance.get(
                 "api/v1/expense/downloadexcel",

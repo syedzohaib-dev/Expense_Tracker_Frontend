@@ -5,6 +5,8 @@ import axiosInstance from "../utils/axiosinstance";
 export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
+    const token = localStorage.getItem("expense_token");
+
     const [user, setUser] = useState(null);
 
 
@@ -19,8 +21,6 @@ const UserProvider = ({ children }) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const token = localStorage.getItem("token");
-
                 if (!token) { return };
 
                 const response = await axiosInstance.get("api/v1/auth/getUser", {

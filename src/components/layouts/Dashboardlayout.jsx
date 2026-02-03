@@ -4,10 +4,11 @@ import Sidemenu from "../Sidemenu.jsx";
 import { useNavigate } from "react-router-dom";
 
 const Dashboardlayout = ({ children }) => {
+    const token = localStorage.getItem("expense_token");
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
-  const token = localStorage.getItem("token");
   if (!token) {
     navigate("/login");
   }

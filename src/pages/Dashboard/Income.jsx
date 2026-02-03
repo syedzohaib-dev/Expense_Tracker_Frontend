@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Income = () => {
+  const token = localStorage.getItem("expense_token");
   const [incomeData, setIncomeData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [incomeSourceDetail, setIncomeSourceDetail] = useState([])
@@ -15,7 +16,6 @@ const Income = () => {
 
   const fetchIncomeData = async () => {
     try {
-      const token = localStorage.getItem("token");
       const response = await axiosInstance.get("api/v1/income/get", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -33,13 +33,12 @@ const Income = () => {
 
   const handleAddIncome = async (formData) => {
     try {
-      const token = localStorage.getItem("token");
       await axiosInstance.post("api/v1/income/add", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setShowModal(false);
 
-   
+
       window.location.reload();
 
     } catch (error) {
@@ -50,13 +49,10 @@ const Income = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login"); 
+      navigate("/login");
     }
   }, [navigate]);
-
-
 
   return (
     <Dashboardlayout>

@@ -12,6 +12,8 @@ import {
 import axiosInstance from "../utils/axiosinstance";
 
 const IncomeOverview = ({ incomeData, onAddIncome }) => {
+    const token = localStorage.getItem("expense_token");
+
   if (!incomeData || incomeData.length === 0) {
     return (
       <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-4xl mx-auto text-center text-gray-500">
@@ -31,7 +33,6 @@ const IncomeOverview = ({ incomeData, onAddIncome }) => {
 
   const handleDownloadExcel = async () => {
     try {
-      const token = localStorage.getItem("token");
 
       const response = await axiosInstance.get(
         "api/v1/income/downloadexcel",
@@ -62,8 +63,8 @@ const IncomeOverview = ({ incomeData, onAddIncome }) => {
 
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-md w-full  mx-auto">
-      <div className="flex items-center justify-between mb-4">
+    <div className="bg-white p-6 rounded-2xl shadow-md w-full h-100 mx-auto">
+      <div className="w-full flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-gray-700">Income Overview</h2>
         <div className="flex gap-2">
           <button

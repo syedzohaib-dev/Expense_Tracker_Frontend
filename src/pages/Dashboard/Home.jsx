@@ -10,6 +10,7 @@ import axiosInstance from "../../utils/axiosinstance";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const token = localStorage.getItem("expense_token");
   const [balance, setBalance] = useState(0);
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
@@ -21,7 +22,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("expense_token");
     if (!token) {
       navigate("/login");
     }
@@ -30,7 +31,7 @@ const Home = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const token = localStorage.getItem("token");
+
         const response = await axiosInstance.get("api/v1/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
         });
