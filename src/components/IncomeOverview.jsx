@@ -14,14 +14,14 @@ import axiosInstance from "../utils/axiosinstance";
 const IncomeOverview = ({ incomeData, onAddIncome }) => {
     const token = localStorage.getItem("expense_token");
 
-  if (!incomeData || incomeData.length === 0) {
-    return (
-      <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-4xl mx-auto text-center text-gray-500">
-        <h2 className="text-lg font-semibold mb-4">Income Overview</h2>
-        <p>No income data found</p>
-      </div>
-    );
-  }
+  // if (!incomeData || incomeData.length === 0) {
+  //   return (
+  //     <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-4xl mx-auto text-center text-gray-500">
+  //       <h2 className="text-lg font-semibold mb-4">Income Overview</h2>
+  //       <p>No income data found</p>
+  //     </div>
+  //   );
+  // }
 
   const data = incomeData.map((item) => ({
     date: new Date(item.date).toLocaleDateString("en-GB", {
