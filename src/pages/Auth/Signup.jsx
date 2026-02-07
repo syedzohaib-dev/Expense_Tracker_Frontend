@@ -44,8 +44,12 @@ const Signup = () => {
       setError('Please enter the passwod')
       return;
     }
-    if (password < 8) {
+    if (password.length < 8) {
       setError('Please enter 8 character passwod')
+      return;
+    }
+    if (!profilePic) {
+      setError("Please upload a profile picture");
       return;
     }
 
