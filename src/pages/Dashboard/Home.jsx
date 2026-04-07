@@ -31,10 +31,8 @@ const Home = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-
-        const response = await axiosInstance.get("api/v1/dashboard", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        if (!token) return;
+        const response = await axiosInstance.get("api/v1/dashboard");
         console.log(response?.data)
 
 

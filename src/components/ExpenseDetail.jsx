@@ -10,15 +10,13 @@ const ExpenseDetail = ({ expenseDetail, fetchExpenseData }) => {
 
     const visibleTransactions = showAll
         ? expenseDetail
-        : expenseDetail.slice(0, 3);
+        : expenseDetail.slice(0, 10);
 
     const handleDelete = async (id) => {
         try {
+            if(!token) return;
             const response = await axiosInstance.delete(
-                `api/v1/expense/${id}`,
-                {
-                    headers: { Authorization: `Bearer ${token}` },
-                }
+                `api/v1/expense/${id}`
             );
             fetchExpenseData();
         } catch (error) {

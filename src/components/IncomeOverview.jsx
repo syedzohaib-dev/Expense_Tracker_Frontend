@@ -12,7 +12,7 @@ import {
 import axiosInstance from "../utils/axiosinstance";
 
 const IncomeOverview = ({ incomeData, onAddIncome }) => {
-    const token = localStorage.getItem("expense_token");
+  const token = localStorage.getItem("expense_token");
 
   // if (!incomeData || incomeData.length === 0) {
   //   return (
@@ -33,14 +33,11 @@ const IncomeOverview = ({ incomeData, onAddIncome }) => {
 
   const handleDownloadExcel = async () => {
     try {
-
+      if (!token) return;
       const response = await axiosInstance.get(
         "api/v1/income/downloadexcel",
         {
           responseType: "arraybuffer",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }
       );
 

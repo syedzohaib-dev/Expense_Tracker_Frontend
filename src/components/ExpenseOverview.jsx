@@ -19,9 +19,8 @@ const ExpenseOverview = () => {
 
     const fetchExpenseData = async () => {
         try {
-            const response = await axiosInstance.get("api/v1/expense/get", {
-                headers: { Authorization: `Bearer ${token}` },
-            });
+            if (!token) return;
+            const response = await axiosInstance.get("api/v1/expense/get");
             console.log(response?.data)
             setExpenseData(response?.data || []);
 
@@ -51,10 +50,7 @@ const ExpenseOverview = () => {
             const response = await axiosInstance.get(
                 "api/v1/expense/downloadexcel",
                 {
-                    responseType: "arraybuffer",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+                    responseType: "arraybuffer"
                 }
             );
 
@@ -90,7 +86,7 @@ const ExpenseOverview = () => {
                         onClick={handleDownloadExcel}
                         className="bg-[#107c41] hover:bg-[#0e6b38] cursor-pointer text-white text-sm px-4 py-2 rounded-md transition"
                     >
-                       📋 Download Excel
+                        📋 Download Excel
                     </button>
                 </div>
             </div>

@@ -16,9 +16,8 @@ const Income = () => {
 
   const fetchIncomeData = async () => {
     try {
-      const response = await axiosInstance.get("api/v1/income/get", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      if (!token) return;
+      const response = await axiosInstance.get("api/v1/income/get");
       setIncomeSourceDetail(response?.data)
       const income = response?.data;
       const formattedData = Array.isArray(income) ? income : [income];
@@ -33,12 +32,9 @@ const Income = () => {
 
   const handleAddIncome = async (formData) => {
     try {
-      await axiosInstance.post("api/v1/income/add", formData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      if(!token) return;
+      await axiosInstance.post("api/v1/income/add", formData);
       setShowModal(false);
-
-
       window.location.reload();
 
     } catch (error) {

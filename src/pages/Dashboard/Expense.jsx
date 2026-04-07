@@ -7,7 +7,7 @@ import axiosInstance from '../../utils/axiosinstance';
 import { useNavigate } from 'react-router-dom';
 
 const Expense = () => {
-    const token = localStorage.getItem("expense_token");
+  const token = localStorage.getItem("expense_token");
   const [showModal, setShowModal] = useState(false);
   const [expenseData, setExpenseData] = useState([])
   const [expenseDetail, setExpenseDetail] = useState([])
@@ -15,12 +15,11 @@ const Expense = () => {
 
   const handleAddExpense = async () => {
     try {
-      await axiosInstance.post("api/v1/expense/add", { amount, category, date }, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      if (!token) return;
+      await axiosInstance.post("api/v1/expense/add", { amount, category, date });
 
       setShowModal(false);
-     
+
       window.location.reload();
     } catch (error) {
       console.error("Error adding income:", error);
@@ -30,9 +29,8 @@ const Expense = () => {
 
   const fetchExpenseData = async () => {
     try {
-      const response = await axiosInstance.get("api/v1/expense/get", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      if (!token) return
+      const response = await axiosInstance.get("api/v1/expense/get");
       setExpenseDetail(response?.data)
       const income = response?.data;
       const formattedData = Array.isArray(income) ? income : [income];
@@ -49,7 +47,7 @@ const Expense = () => {
 
   useEffect(() => {
     if (!token) {
-      navigate("/login"); 
+      navigate("/login");
     }
   }, [navigate]);
 

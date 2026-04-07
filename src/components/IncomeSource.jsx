@@ -13,15 +13,13 @@ const IncomeSource = ({ incomeSourceDetail, fetchIncomeData }) => {
 
     const visibleTransactions = showAll
         ? incomeSourceDetail
-        : incomeSourceDetail.slice(0, 3);
+        : incomeSourceDetail.slice(0, 10);
 
     const handleDelete = async (id) => {
         try {
+            if (!token) return;
             const response = await axiosInstance.delete(
-                `api/v1/income/${id}`,
-                {
-                    headers: { Authorization: `Bearer ${token}` },
-                }
+                `api/v1/income/${id}`
             );
             toast.success("Income deleted successfully!");
             fetchIncomeData();
