@@ -3,14 +3,13 @@ import Authlayout from '../../components/layouts/Authlayout'
 import { Link, useNavigate } from 'react-router-dom'
 import Input from '../../components/inputs/Input.jsx'
 import { validateEmail } from '../../utils/helper.js'
-import ProfilePhotoSelector from '../../components/inputs/ProfilePhotoSelector.jsx'
 import { useContext } from 'react'
 import { UserContext } from '../../context/userContext.jsx'
 import axiosInstance from '../../utils/axiosinstance.js'
 
 
 const Signup = () => {
-  const [profilePic, setProfilePic] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,8 +22,6 @@ const Signup = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault()
-
-
 
     if (!fullName) {
       setError('Please enter your name')
@@ -48,67 +45,51 @@ const Signup = () => {
       setError('Please enter 8 character passwod')
       return;
     }
-    if (!profilePic) {
-      setError("Please upload a profile picture");
-      return;
-    }
+
 
     setError('')
 
-    // signup API call
 
     try {
-
-      let uploadedImageUrl = "";
-
-
-      if (profilePic) {
-        const formData = new FormData();
-        formData.append("image", profilePic);
-
-        const uploadRes = await axiosInstance.post("api/v1/auth/upload-image", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-
-        uploadedImageUrl = uploadRes.data.imageUrl;
-      }
-
-
-
+      setLoading(true)
       const response = await axiosInstance.post("/api/v1/auth/register", {
         fullName,
         email,
         password,
-        profileImageUrl: uploadedImageUrl,
+        // profileImageUrl: uploadedImageUrl,
       });
 
 
-      const { token, user } = response.data;
+      const { token, user, _id } = response.data;
 
       if (token) {
-        localStorage.setItem("token", token);
+        localStorage.setItem("expense_token", token);
         updateUser(user);
-        navigate("/login");
-
-
+        navigate("/dashboard");
+      }
+      if (_id) {
+        const userId = _id;
+        localStorage.setItem("expense-userId", userId);
       }
     } catch (error) {
       console.error("Signup failed:", error.response?.data?.message || error.message);
       setError(error.response?.data?.message || "Signup failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <Authlayout>
       <div className="lg:w-100%] h=auto md:h-full mt=10 md:mt-0 flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black">Create an Account</h3>
-        <p className="text-xs text-slate-700 mt-[5px] mb-6">
+        <h3 className="text-4xl font-semibold text-black text-center">Create an Account</h3>
+        <p className="text-sm text-slate-700 mt-[5px] mb-10 text-center">
           JOIN us today by entering your details below.
         </p>
 
         <form onSubmit={handleSignUp}>
 
-          <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
+          {/* <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} /> */}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
@@ -138,7 +119,13 @@ const Signup = () => {
 
           {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
 
-          <button type='submit' className='btn-primary'>SIGN UP</button>
+          <button
+            disabled={loading}
+            type="submit"
+            className={`w-full text-white py-3 rounded-lg mt-4 transition-colors duration-300
+            ${loading ? "cursor-not-allowed bg-gray-300" : "bg-primary hover:bg-primary-dark"}`}>
+            {loading ? "Signing up..." : "SIGN UP"}
+          </button>
 
           <p className='text-[13px] text-slate-800 mt-3'>
             Already have an account?{" "}

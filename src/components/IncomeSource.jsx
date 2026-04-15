@@ -16,6 +16,8 @@ const IncomeSource = ({ incomeSourceDetail, fetchIncomeData }) => {
         : incomeSourceDetail.slice(0, 10);
 
     const handleDelete = async (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this Income?");
+        if (!confirmDelete) return;
         try {
             if (!token) return;
             const response = await axiosInstance.delete(

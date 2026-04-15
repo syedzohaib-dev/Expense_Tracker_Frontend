@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import axiosInstance from "../utils/axiosinstance";
+import toast from "react-hot-toast";
 
 
 
@@ -13,8 +14,11 @@ const ExpenseDetail = ({ expenseDetail, fetchExpenseData }) => {
         : expenseDetail.slice(0, 10);
 
     const handleDelete = async (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this expense?");
+        if (!confirmDelete) return;
+
         try {
-            if(!token) return;
+            if (!token) return;
             const response = await axiosInstance.delete(
                 `api/v1/expense/${id}`
             );

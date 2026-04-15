@@ -4,7 +4,7 @@ import Sidemenu from "../Sidemenu.jsx";
 import { useNavigate } from "react-router-dom";
 
 const Dashboardlayout = ({ children }) => {
-    const token = localStorage.getItem("expense_token");
+  const token = localStorage.getItem("expense_token");
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Dashboardlayout = ({ children }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-100 to-purple-300">
       {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full w-60 z-30 transition-transform duration-300 

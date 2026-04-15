@@ -5,7 +5,7 @@ const Authlayout = ({ children }) => {
     return (
         <div className='flex overflow-hidden'>
             <div className="w-screen h-screen md:w-[60vw] px-12">
-                <h1 className="text-lg font-medium text-black">Expense Tracker</h1>
+                {/* <h1 className="text-lg font-medium text-black">Expense Tracker</h1> */}
                 {children}
             </div>
 

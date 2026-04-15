@@ -8,6 +8,7 @@ import { UserContext } from '../../context/userContext.jsx'
 import axiosInstance from '../../utils/axiosinstance.js'
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
@@ -19,10 +20,10 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-     if (!email) {
-    setError("Please enter your email address");
-    return;
-  }
+    if (!email) {
+      setError("Please enter your email address");
+      return;
+    }
 
     if (!validateEmail(email)) {
       setError('Please enter a valid email address.')
@@ -36,39 +37,34 @@ const Login = () => {
 
     setError("")
 
-    // login API call
-
     try {
+      setLoading(true)
       const response = await axiosInstance.post("api/v1/auth/login", {
         email,
         password,
       });
-
+      console.log("login data ==> ", response.data)
       // Agar login successful ho to token save karo
 
-      const { token, user } = response.data;
+      const { token, user, id } = response.data;
 
       if (token) {
         localStorage.setItem("expense_token", token);
         updateUser(user)
         navigate("/dashboard");
-
       }
-
-
+      if (id) {
+        const userId = id;
+        localStorage.setItem("expense-userId", userId);
+      }
     } catch (error) {
       console.error(
         "Login failed:",
-
         error.response?.data?.message || error.message
-      );
-
+      )
+    } finally {
+      setLoading(false);
     }
-
-
-
-
-
   }
 
 
@@ -97,7 +93,13 @@ const Login = () => {
 
           {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
 
-          <button type='submit' className='btn-primary'>LOGIN</button>
+          <button
+            disabled={loading}
+            type="submit"
+            className={`w-full text-white py-3 rounded-lg mt-4 transition-colors duration-300
+            ${loading ? "cursor-not-allowed bg-gray-300" : "bg-primary hover:bg-primary-dark"}`}>
+            {loading ? "LOGGING IN..." : "LOG IN"}
+          </button>
 
           <p className='text-[13px] text-slate-800 mt-3'>
             Don't have an account?{" "}
